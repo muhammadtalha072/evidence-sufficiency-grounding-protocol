@@ -1,0 +1,286 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/muhammadtalha072/evidence-sufficiency-grounding-protocol/schemas/stage2_output_schema.json",
+  "title": "Stage 2 Evaluation Record (DRAFT v0.1)",
+  "description": "Initial proposal for a single Stage 2 evaluation record. Subject to joint review and revision. Not a ratified schema.",
+  "type": "object",
+  "required": [
+    "case_id",
+    "regime",
+    "agent",
+    "judge",
+    "reference",
+    "stage1_flags",
+    "evidence"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "description": "Identifier of the experimental case (e.g., EXP-TABLE-01)."
+    },
+    "regime": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C"
+      ],
+      "description": "Evidence regime carried forward from Stage 1."
+    },
+    "regime_c_subtype": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "contextual_metadata_divergence",
+        "sibling_identifier_confusion",
+        null
+      ],
+      "description": "Recorded when regime is C. Whether these subtypes remain distinct or are merged is an open question (Stage 2 design, Section 2)."
+    },
+    "agent": {
+      "type": "object",
+      "required": [
+        "model",
+        "version",
+        "provider",
+        "response",
+        "correctness_outcome",
+        "error_characterization"
+      ],
+      "properties": {
+        "model": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "prompt_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "response": {
+          "type": "string"
+        },
+        "correctness_outcome": {
+          "type": "string",
+          "enum": [
+            "Correct",
+            "Partially correct",
+            "Incorrect",
+            "Abstained"
+          ]
+        },
+        "error_characterization": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Misattributed",
+              "Unsupported",
+              "Omitted",
+              "Contradictory"
+            ]
+          },
+          "description": "Applied when correctness_outcome is not Correct. A response may carry more than one characterization."
+        },
+        "primary_error_characterization": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "Misattributed",
+            "Unsupported",
+            "Omitted",
+            "Contradictory",
+            null
+          ],
+          "description": "The primary characterization recorded for analysis. Secondary ones remain in error_characterization."
+        }
+      },
+      "additionalProperties": false
+    },
+    "judge": {
+      "type": "object",
+      "required": [
+        "model",
+        "version",
+        "provider",
+        "grounding_decision",
+        "sufficiency_detection"
+      ],
+      "properties": {
+        "model": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "prompt_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "grounding_decision": {
+          "type": "string",
+          "enum": [
+            "Accepts as grounded",
+            "Rejects as ungrounded",
+            "Abstains"
+          ],
+          "description": "Recorded independently of sufficiency_detection."
+        },
+        "sufficiency_detection": {
+          "type": "string",
+          "enum": [
+            "Detects insufficiency",
+            "Does not detect",
+            "Not applicable"
+          ],
+          "description": "Recorded independently of grounding_decision. The reason for detection (structural, semantic, general) may be recorded in rationale."
+        },
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Recorded where available. Not used to weight the decision in this schema."
+        },
+        "rationale": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "reference": {
+      "type": "object",
+      "description": "Independent evaluation reference. Recorded separately from agent and judge outputs. Not automatically exposed to either model.",
+      "required": [
+        "answer_correctness",
+        "claim_grounding_status",
+        "grounding_error_characterization",
+        "evidence_sufficiency"
+      ],
+      "properties": {
+        "answer_correctness": {
+          "type": "string",
+          "enum": [
+            "Correct",
+            "Partially correct",
+            "Incorrect",
+            "Abstained"
+          ]
+        },
+        "claim_grounding_status": {
+          "type": "string",
+          "enum": [
+            "Grounded",
+            "Ungrounded",
+            "Ambiguous"
+          ],
+          "description": "Separate from answer_correctness. A factually correct answer may be Ungrounded."
+        },
+        "grounding_error_characterization": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Misattributed",
+              "Unsupported",
+              "Omitted",
+              "Contradictory"
+            ]
+          },
+          "description": "Recorded when claim_grounding_status is Ungrounded. Describes the nature of the grounding failure."
+        },
+        "evidence_sufficiency": {
+          "type": "string",
+          "enum": [
+            "Sufficient",
+            "Insufficient (structural)",
+            "Insufficient (semantic)",
+            "Ambiguous"
+          ]
+        },
+        "gold_answer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "stage1_flags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "BROKEN_MARKDOWN_TABLE",
+          "MID_SENTENCE_CUTOFF",
+          "HIGH_TOKEN_OVERLAP"
+        ]
+      },
+      "description": "Structural flags from Stage 1. Recorded as input to the sufficiency judgment, not as the judgment itself."
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "presented_to_agent",
+        "presented_to_judge"
+      ],
+      "properties": {
+        "presented_to_agent": {
+          "type": "string"
+        },
+        "presented_to_judge": {
+          "type": "string"
+        },
+        "shared": {
+          "type": "boolean",
+          "description": "True if the agent and judge received identical evidence. False if the judge received an augmented view. The inclusion of an augmented condition remains an open question (Stage 2 design, Section 5.2)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "protocol_version": {
+          "type": "string",
+          "default": "DRAFT v0.1"
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
