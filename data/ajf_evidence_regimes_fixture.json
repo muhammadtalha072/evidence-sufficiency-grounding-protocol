@@ -1,0 +1,63 @@
+[
+  {
+    "case_id": "EXP-TABLE-01",
+    "query": "What was the Q3 2026 GAAP Cloud Database segment revenue in millions?",
+    "gold_answer": "$189.45M GAAP in Q3 2026 (up from $142.10M in Q2 2026).",
+    "regimes": {
+      "regime_a_intact": {
+        "chunk_id": 201,
+        "doc_id": "SEC-10K-TABLES.md",
+        "content": "Section: Item 7 - Segment Revenue (GAAP, $ in Millions)\n| Segment | Q3 2026 (GAAP) | Q2 2026 (GAAP) | YoY Change |\n| :--- | :---: | :---: | :---: |\n| Cloud Database | $189.45M | $142.10M | +33.3% |",
+        "stage1_structural_flags": [],
+        "stage1_evidence_sufficient": true
+      },
+      "regime_b_structurally_incomplete": {
+        "chunk_id": 202,
+        "doc_id": "SEC-10K-TABLES.md",
+        "content": "| Cloud Database | $189.45M | $142.10M | +33.3%",
+        "stage1_structural_flags": [
+          "BROKEN_MARKDOWN_TABLE",
+          "MID_SENTENCE_CUTOFF"
+        ],
+        "stage1_evidence_sufficient": false
+      },
+      "regime_c_sibling_distractor": {
+        "chunk_id": 203,
+        "doc_id": "SEC-10K-TABLES.md",
+        "content": "Section: Item 7 - Non-GAAP Adjusted Billings ($ in Thousands)\n| Segment | Q3 2025 (Non-GAAP) | Q2 2025 (Non-GAAP) | YoY Change |\n| :--- | :---: | :---: | :---: |\n| Cloud Database | $189,450 | $142,100 | +33.3% |",
+        "stage1_structural_flags": [],
+        "stage1_evidence_sufficient": false
+      }
+    }
+  },
+  {
+    "case_id": "EXP-RUNBOOK-01",
+    "query": "How do we remediate fatal panic ERR-PG-9042-WAL on standby nodes?",
+    "gold_answer": "Stop standby replay, run pg_waldump on the corrupted timeline segment, and re-fetch the archived WAL segment from object storage before restarting recovery.",
+    "regimes": {
+      "regime_a_intact": {
+        "chunk_id": 108,
+        "doc_id": "RUNBOOK-DB-FAULTS.md",
+        "content": "### Runbook: ERR-PG-9042-WAL (Standby WAL Segment Checksum Panic)\nRemediation: Pause standby recovery, verify segment integrity via pg_waldump, and restore the damaged WAL file from cold archive before resuming replication.",
+        "stage1_structural_flags": [],
+        "stage1_evidence_sufficient": true
+      },
+      "regime_b_structurally_incomplete": {
+        "chunk_id": 1080,
+        "doc_id": "RUNBOOK-DB-FAULTS.md",
+        "content": "Remediation: Pause standby recovery, verify segment integrity via pg_waldump, and restore the damaged WAL file from cold archive before",
+        "stage1_structural_flags": [
+          "MID_SENTENCE_CUTOFF"
+        ],
+        "stage1_evidence_sufficient": false
+      },
+      "regime_c_sibling_distractor": {
+        "chunk_id": 109,
+        "doc_id": "RUNBOOK-DB-FAULTS.md",
+        "content": "### Runbook: ERR-PG-7710-LOCK (Standby Lightweight Lock Starvation on WAL Replay)\nRemediation: Fatal panic on standby nodes during high-concurrency WAL replay. Increase max_locks_per_transaction=256 and set max_standby_streaming_delay=30s.",
+        "stage1_structural_flags": [],
+        "stage1_evidence_sufficient": false
+      }
+    }
+  }
+]
