@@ -3,42 +3,91 @@
   "title": "Stage 2 Case Record Template (DRAFT v0.2)",
   "description": "Template for a single research case with three evidence regimes. Each regime includes the agent output, the exact judge input, and one or more judge evaluations. Subject to joint review.",
   "type": "object",
-  "required": ["case_id", "research_question", "query", "gold_answer", "domain", "case_description", "regimes"],
+  "required": [
+    "case_id",
+    "research_question",
+    "query",
+    "gold_answer",
+    "domain",
+    "case_description",
+    "regimes"
+  ],
   "properties": {
-    "case_id": { "type": "string" },
-    "research_question": { "type": "string" },
-    "query": { "type": "string" },
-    "gold_answer": { "type": "string" },
-    "domain": { "type": "string" },
-    "case_description": { "type": "string" },
+    "case_id": {
+      "type": "string"
+    },
+    "research_question": {
+      "type": "string"
+    },
+    "query": {
+      "type": "string"
+    },
+    "gold_answer": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "case_description": {
+      "type": "string"
+    },
     "regimes": {
       "type": "object",
-      "required": ["regime_a", "regime_b", "regime_c"],
+      "required": [
+        "regime_a",
+        "regime_b",
+        "regime_c"
+      ],
       "properties": {
-        "regime_a": { "$ref": "#/$defs/regime" },
-        "regime_b": { "$ref": "#/$defs/regime" },
-        "regime_c": { "$ref": "#/$defs/regime" }
+        "regime_a": {
+          "$ref": "#/$defs/regime"
+        },
+        "regime_b": {
+          "$ref": "#/$defs/regime"
+        },
+        "regime_c": {
+          "$ref": "#/$defs/regime"
+        }
       },
       "additionalProperties": false
+    },
+    "expected_judge_behavior_note": {
+      "type": "string",
+      "description": "Clarifies that expected judge behaviors are design references, not actual evaluation results."
     }
   },
   "additionalProperties": false,
   "$defs": {
     "regime": {
       "type": "object",
-      "required": ["retrieved_evidence", "stage1_diagnostics", "agent", "reference", "judge_evaluations"],
+      "required": [
+        "retrieved_evidence",
+        "stage1_diagnostics",
+        "agent",
+        "reference",
+        "judge_evaluations"
+      ],
       "properties": {
-        "retrieved_evidence": { "type": "string" },
+        "retrieved_evidence": {
+          "type": "string"
+        },
         "stage1_diagnostics": {
           "type": "object",
-          "required": ["structural_flags", "reference_annotations"],
+          "required": [
+            "structural_flags",
+            "reference_annotations"
+          ],
           "properties": {
             "structural_flags": {
               "type": "array",
               "uniqueItems": true,
               "items": {
                 "type": "string",
-                "enum": ["BROKEN_MARKDOWN_TABLE", "MID_SENTENCE_CUTOFF", "HIGH_TOKEN_OVERLAP"]
+                "enum": [
+                  "BROKEN_MARKDOWN_TABLE",
+                  "MID_SENTENCE_CUTOFF",
+                  "HIGH_TOKEN_OVERLAP"
+                ]
               },
               "description": "Native output of pgRAG-Inspector Stage 1 scanner. The presence of HIGH_TOKEN_OVERLAP in this enum permits recording it if the scanner emits it; it does not assert that the scanner emitted it in any specific run."
             },
@@ -46,40 +95,99 @@
               "type": "object",
               "description": "Reference annotations, distinct from native structural flags. Not produced by the scanner.",
               "properties": {
-                "evidence_sufficient": { "type": "boolean" },
-                "identifier_parity": { "type": ["boolean", "null"] }
+                "evidence_sufficient": {
+                  "type": "boolean"
+                },
+                "identifier_parity": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                }
               },
               "additionalProperties": false
+            },
+            "diagnostic_note": {
+              "type": "string"
             }
           },
           "additionalProperties": false
         },
         "agent": {
           "type": "object",
-          "required": ["model", "version", "provider", "response", "correctness_outcome", "error_characterization"],
+          "required": [
+            "model",
+            "version",
+            "provider",
+            "response",
+            "correctness_outcome",
+            "error_characterization"
+          ],
           "properties": {
-            "model": { "type": "string" },
-            "version": { "type": "string" },
-            "provider": { "type": "string" },
-            "prompt_version": { "type": ["string", "null"] },
-            "agent_input": { "type": "string", "description": "The exact text presented to the agent for this regime." },
-            "response": { "type": "string" },
-            "correctness_outcome": {
+            "model": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "provider": {
+              "type": "string"
+            },
+            "prompt_version": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "agent_input": {
               "type": "string",
-              "enum": ["Correct", "Partially correct", "Incorrect", "Abstained"]
+              "description": "The exact text presented to the agent for this regime."
+            },
+            "response": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "correctness_outcome": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "Correct",
+                "Partially correct",
+                "Incorrect",
+                "Abstained",
+                null
+              ]
             },
             "error_characterization": {
               "type": "array",
               "uniqueItems": true,
               "items": {
                 "type": "string",
-                "enum": ["Misattributed", "Unsupported", "Omitted", "Contradictory"]
+                "enum": [
+                  "Misattributed",
+                  "Unsupported",
+                  "Omitted",
+                  "Contradictory"
+                ]
               },
               "description": "Applied when correctness_outcome is not Correct. A response may carry more than one characterization. Empty array allowed."
             },
             "primary_error_characterization": {
-              "type": ["string", "null"],
-              "enum": ["Misattributed", "Unsupported", "Omitted", "Contradictory", null],
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "Misattributed",
+                "Unsupported",
+                "Omitted",
+                "Contradictory",
+                null
+              ],
               "description": "The primary characterization recorded for analysis. Secondary ones remain in error_characterization."
             }
           },
@@ -87,28 +195,67 @@
         },
         "reference": {
           "type": "object",
-          "required": ["answer_correctness", "claim_grounding_status", "grounding_error_characterization", "evidence_sufficiency"],
+          "required": [
+            "answer_correctness",
+            "claim_grounding_status",
+            "grounding_error_characterization",
+            "evidence_sufficiency"
+          ],
           "properties": {
             "answer_correctness": {
               "type": "string",
-              "enum": ["Correct", "Partially correct", "Incorrect", "Abstained"]
+              "enum": [
+                "Correct",
+                "Partially correct",
+                "Incorrect",
+                "Abstained"
+              ]
             },
             "claim_grounding_status": {
-              "type": "string",
-              "enum": ["Grounded", "Ungrounded", "Ambiguous", "Not applicable"]
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "Grounded",
+                "Ungrounded",
+                "Ambiguous",
+                "Not applicable",
+                null
+              ]
             },
             "grounding_error_characterization": {
               "type": "array",
               "uniqueItems": true,
               "items": {
                 "type": "string",
-                "enum": ["Misattributed", "Unsupported", "Omitted", "Contradictory"]
+                "enum": [
+                  "Misattributed",
+                  "Unsupported",
+                  "Omitted",
+                  "Contradictory"
+                ]
               },
               "description": "Applied when claim_grounding_status is Ungrounded. Empty array allowed."
             },
             "evidence_sufficiency": {
               "type": "string",
-              "enum": ["Sufficient", "Insufficient (structural)", "Insufficient (semantic)", "Ambiguous"]
+              "enum": [
+                "Sufficient",
+                "Insufficient (structural)",
+                "Insufficient (semantic)",
+                "Ambiguous"
+              ]
+            },
+            "grounding_assessment_status": {
+              "type": "string",
+              "enum": [
+                "Pending agent response",
+                "Assessed"
+              ]
+            },
+            "grounding_assessment_note": {
+              "type": "string"
             }
           },
           "additionalProperties": false
@@ -119,28 +266,72 @@
           "description": "One or more judge evaluations for the same evidence item. Each evaluation records its own condition, the exact judge input, and the resulting decision.",
           "items": {
             "type": "object",
-            "required": ["evaluation_id", "condition", "exposure", "judge_input", "judge", "result"],
+            "required": [
+              "evaluation_id",
+              "condition",
+              "exposure",
+              "judge_input",
+              "judge",
+              "result"
+            ],
             "properties": {
-              "evaluation_id": { "type": "string" },
+              "evaluation_id": {
+                "type": "string"
+              },
               "condition": {
                 "type": "string",
                 "description": "Currently 2A or 2B. The schema permits additional values if future conditions are introduced; the documentation records 2A and 2B as the currently agreed values."
               },
-              "exposure": { "type": "string", "enum": ["unassisted", "stage1_informed"] },
+              "exposure": {
+                "type": "string",
+                "enum": [
+                  "unassisted",
+                  "stage1_informed"
+                ]
+              },
               "judge_input": {
                 "type": "object",
-                "required": ["query", "retrieved_evidence", "agent_response", "stage1_diagnostic_block"],
+                "required": [
+                  "query",
+                  "retrieved_evidence",
+                  "agent_response",
+                  "stage1_diagnostic_block"
+                ],
                 "properties": {
-                  "query": { "type": "string" },
-                  "retrieved_evidence": { "type": "string" },
-                  "agent_response": { "type": "string" },
+                  "query": {
+                    "type": "string"
+                  },
+                  "retrieved_evidence": {
+                    "type": "string"
+                  },
+                  "agent_response": {
+                    "type": "string"
+                  },
                   "stage1_diagnostic_block": {
-                    "type": ["object", "null"],
+                    "type": [
+                      "object",
+                      "null"
+                    ],
                     "description": "Null when the judge received no diagnostic block (Condition 2A). Populated when the judge received Stage 1 diagnostics (Condition 2B).",
                     "properties": {
-                      "structural_flags": { "type": "array", "items": { "type": "string" } },
-                      "reference_annotations": { "type": ["object", "null"] },
-                      "identifier_parity": { "type": ["boolean", "null"] }
+                      "structural_flags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "reference_annotations": {
+                        "type": [
+                          "object",
+                          "null"
+                        ]
+                      },
+                      "identifier_parity": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      }
                     },
                     "additionalProperties": false
                   }
@@ -149,40 +340,140 @@
               },
               "judge": {
                 "type": "object",
-                "required": ["model", "version", "provider"],
+                "required": [
+                  "model",
+                  "version",
+                  "provider"
+                ],
                 "properties": {
-                  "model": { "type": "string" },
-                  "version": { "type": "string" },
-                  "provider": { "type": "string" },
-                  "prompt_version": { "type": ["string", "null"] }
+                  "model": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "provider": {
+                    "type": "string"
+                  },
+                  "prompt_version": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
                 },
                 "additionalProperties": false
               },
               "result": {
                 "type": "object",
-                "required": ["grounding_decision", "sufficiency_detection", "reliability_outcome"],
+                "required": [
+                  "grounding_decision",
+                  "sufficiency_detection",
+                  "reliability_outcome"
+                ],
                 "properties": {
                   "grounding_decision": {
-                    "type": "string",
-                    "enum": ["Accepts as grounded", "Rejects as ungrounded", "Abstains"]
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "enum": [
+                      "Accepts as grounded",
+                      "Rejects as ungrounded",
+                      "Abstains",
+                      null
+                    ]
                   },
                   "sufficiency_detection": {
-                    "type": "string",
-                    "enum": ["Detects insufficiency", "Does not detect", "Not applicable"]
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "enum": [
+                      "Detects insufficiency",
+                      "Does not detect",
+                      "Not applicable",
+                      null
+                    ]
                   },
                   "reliability_outcome": {
-                    "type": ["string", "null"],
-                    "enum": ["True acceptance", "False acceptance", "True rejection", "False rejection", "Judge abstained", "Excluded", null],
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "enum": [
+                      "True acceptance",
+                      "False acceptance",
+                      "True rejection",
+                      "False rejection",
+                      "Judge abstained",
+                      "Excluded",
+                      null
+                    ],
                     "description": "Derived from grounding_decision + reference.claim_grounding_status. Judge abstained is recorded when the judge abstains from a grounding decision. Excluded is recorded when the case falls outside the binary comparison (e.g., reference claim_grounding_status is Ambiguous or Not applicable). Recomputable from base fields."
                   },
-                  "confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
-                  "rationale": { "type": ["string", "null"] }
+                  "confidence": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "rationale": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
                 },
                 "additionalProperties": false
               }
             },
             "additionalProperties": false
           }
+        },
+        "expected_judge_behavior": {
+          "type": "object",
+          "required": [
+            "grounding_decision",
+            "sufficiency_detection",
+            "reliability_outcome",
+            "rationale"
+          ],
+          "properties": {
+            "grounding_decision": {
+              "type": "string",
+              "enum": [
+                "Accepts as grounded",
+                "Rejects as ungrounded",
+                "Abstains"
+              ]
+            },
+            "sufficiency_detection": {
+              "type": "string",
+              "enum": [
+                "Detects insufficiency",
+                "Does not detect",
+                "Not applicable"
+              ]
+            },
+            "reliability_outcome": {
+              "type": "string",
+              "enum": [
+                "True acceptance",
+                "False acceptance",
+                "True rejection",
+                "False rejection",
+                "Judge abstained",
+                "Excluded"
+              ]
+            },
+            "rationale": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false

@@ -1,0 +1,292 @@
+{
+  "case_id": "EXP-RUNBOOK-01",
+  "research_question": "Does structural or semantic evidence degradation affect agent correctness and judge grounding decisions in procedural runbook queries?",
+  "query": "How do we remediate fatal panic ERR-PG-9042-WAL on standby nodes?",
+  "gold_answer": "Pause standby recovery, verify WAL segment integrity via pg_waldump, and restore the damaged WAL segment from cold archive before resuming replication.",
+  "domain": "Database operations (PostgreSQL runbook)",
+  "case_description": "Runbook query where the correct remediation depends on identifying the exact error code ERR-PG-9042-WAL and its associated recovery procedure. A sibling error code (ERR-PG-7710-LOCK) shares terminology but requires a different remediation.",
+  "expected_judge_behavior_note": "The judge results recorded in this file are EXPECTED outcomes for design purposes. They are not actual judge evaluations. Actual evaluations will be recorded after the experiment is executed.",
+  "regimes": {
+    "regime_a": {
+      "retrieved_evidence": "### Runbook: ERR-PG-9042-WAL (Standby WAL Segment Checksum Panic)\nRemediation: Pause standby recovery, verify segment integrity via pg_waldump, and restore the damaged WAL file from cold archive before resuming replication.",
+      "stage1_diagnostics": {
+        "structural_flags": [],
+        "reference_annotations": {
+          "evidence_sufficient": true,
+          "identifier_parity": true
+        }
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "### Runbook: ERR-PG-9042-WAL (Standby WAL Segment Checksum Panic)\nRemediation: Pause standby recovery, verify segment integrity via pg_waldump, and restore the damaged WAL file from cold archive before resuming replication.",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": "Correct",
+        "claim_grounding_status": "Grounded",
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Sufficient"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Accepts as grounded",
+        "sufficiency_detection": "Does not detect",
+        "reliability_outcome": "True acceptance",
+        "rationale": "Evidence is structurally intact, identifier matches, and the agent response is fully supported."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-RUNBOOK-01-A-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "How do we remediate fatal panic ERR-PG-9042-WAL on standby nodes?",
+            "retrieved_evidence": "### Runbook: ERR-PG-9042-WAL (Standby WAL Segment Checksum Panic)\nRemediation: Pause standby recovery, verify segment integrity via pg_waldump, and restore the damaged WAL file from cold archive before resuming replication.",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": null
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-RUNBOOK-01-A-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "How do we remediate fatal panic ERR-PG-9042-WAL on standby nodes?",
+            "retrieved_evidence": "### Runbook: ERR-PG-9042-WAL (Standby WAL Segment Checksum Panic)\nRemediation: Pause standby recovery, verify segment integrity via pg_waldump, and restore the damaged WAL file from cold archive before resuming replication.",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": {
+              "structural_flags": [],
+              "reference_annotations": {
+                "evidence_sufficient": true,
+                "identifier_parity": true
+              },
+              "identifier_parity": true
+            }
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    },
+    "regime_b": {
+      "retrieved_evidence": "Remediation: Pause standby recovery, verify segment integrity via pg_waldump, and restore the damaged WAL file from cold archive before",
+      "stage1_diagnostics": {
+        "structural_flags": [
+          "MID_SENTENCE_CUTOFF"
+        ],
+        "reference_annotations": {
+          "evidence_sufficient": false,
+          "identifier_parity": null
+        }
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "Remediation: Pause standby recovery, verify segment integrity via pg_waldump, and restore the damaged WAL file from cold archive before",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": "Partially correct",
+        "claim_grounding_status": null,
+        "grounding_error_characterization": [
+          "Omitted"
+        ],
+        "evidence_sufficiency": "Insufficient (structural)",
+        "grounding_assessment_status": "Pending agent response",
+        "grounding_assessment_note": "Claim grounding cannot be determined until the agent response is available. Supported claims may be grounded even when the overall procedural answer is incomplete."
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Rejects as ungrounded",
+        "sufficiency_detection": "Detects insufficiency",
+        "reliability_outcome": "True rejection",
+        "rationale": "Evidence is truncated mid-sentence. The agent cannot confirm the final remediation step. A correct judge should reject the claim as not fully grounded."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-RUNBOOK-01-B-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "How do we remediate fatal panic ERR-PG-9042-WAL on standby nodes?",
+            "retrieved_evidence": "Remediation: Pause standby recovery, verify segment integrity via pg_waldump, and restore the damaged WAL file from cold archive before",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": null
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-RUNBOOK-01-B-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "How do we remediate fatal panic ERR-PG-9042-WAL on standby nodes?",
+            "retrieved_evidence": "Remediation: Pause standby recovery, verify segment integrity via pg_waldump, and restore the damaged WAL file from cold archive before",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": {
+              "structural_flags": [
+                "MID_SENTENCE_CUTOFF"
+              ],
+              "reference_annotations": {
+                "evidence_sufficient": false,
+                "identifier_parity": null
+              },
+              "identifier_parity": null
+            }
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    },
+    "regime_c": {
+      "retrieved_evidence": "### Runbook: ERR-PG-7710-LOCK (Standby Lightweight Lock Starvation on WAL Replay)\nRemediation: Fatal panic on standby nodes during high-concurrency WAL replay. Increase max_locks_per_transaction=256 and set max_standby_streaming_delay=30s.",
+      "stage1_diagnostics": {
+        "structural_flags": [],
+        "reference_annotations": {
+          "evidence_sufficient": false,
+          "identifier_parity": false
+        },
+        "diagnostic_note": "identifier_parity: false is a reference annotation. It is not asserted here to be a native output of scan_chunks_health(). Condition 2B tests the judge response to this pre-prepared reference annotation, not to a scanner output."
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "### Runbook: ERR-PG-7710-LOCK (Standby Lightweight Lock Starvation on WAL Replay)\nRemediation: Fatal panic on standby nodes during high-concurrency WAL replay. Increase max_locks_per_transaction=256 and set max_standby_streaming_delay=30s.",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": "Incorrect",
+        "claim_grounding_status": "Ungrounded",
+        "grounding_error_characterization": [
+          "Misattributed"
+        ],
+        "evidence_sufficiency": "Insufficient (semantic)"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Rejects as ungrounded",
+        "sufficiency_detection": "Detects insufficiency",
+        "reliability_outcome": "True rejection",
+        "rationale": "The retrieved evidence refers to ERR-PG-7710-LOCK, not ERR-PG-9042-WAL. The agent response does not address the query. In 2B, identifier_parity: false is explicitly available, so a correct judge should detect the mismatch."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-RUNBOOK-01-C-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "How do we remediate fatal panic ERR-PG-9042-WAL on standby nodes?",
+            "retrieved_evidence": "### Runbook: ERR-PG-7710-LOCK (Standby Lightweight Lock Starvation on WAL Replay)\nRemediation: Fatal panic on standby nodes during high-concurrency WAL replay. Increase max_locks_per_transaction=256 and set max_standby_streaming_delay=30s.",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": null
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-RUNBOOK-01-C-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "How do we remediate fatal panic ERR-PG-9042-WAL on standby nodes?",
+            "retrieved_evidence": "### Runbook: ERR-PG-7710-LOCK (Standby Lightweight Lock Starvation on WAL Replay)\nRemediation: Fatal panic on standby nodes during high-concurrency WAL replay. Increase max_locks_per_transaction=256 and set max_standby_streaming_delay=30s.",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": {
+              "structural_flags": [],
+              "reference_annotations": {
+                "evidence_sufficient": false,
+                "identifier_parity": false
+              },
+              "identifier_parity": false
+            }
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    }
+  }
+}
