@@ -1,0 +1,274 @@
+{
+  "case_id": "EXP-RUNBOOK-05",
+  "research_question": "Does sibling confusion between database configuration parameters affect agent correctness and judge grounding decisions?",
+  "query": "What is the recommended setting for max_connections on a PostgreSQL 17 primary with 64 GB RAM?",
+  "gold_answer": "For a PostgreSQL 17 primary with 64 GB RAM, the recommended max_connections is 200. This balances concurrent connection capacity with memory overhead (each connection consumes approximately 10 MB of RAM).",
+  "domain": "Database configuration (PostgreSQL parameters)",
+  "case_description": "Configuration parameter query where the correct answer depends on the exact parameter name. max_connections controls concurrent client connections; max_locks_per_transaction controls lock table size per transaction. The two parameters share terminology but serve different purposes and have different recommendations.",
+  "expected_judge_behavior_note": "Judge results recorded here are EXPECTED outcomes for design purposes. Actual evaluations will be recorded after the experiment is executed.",
+  "regimes": {
+    "regime_a": {
+      "retrieved_evidence": "### PostgreSQL 17 Configuration Guide: max_connections\nParameter: max_connections\nPurpose: Maximum number of concurrent client connections.\nRecommended value: 200 for a primary with 64 GB RAM.\nMemory overhead: approximately 10 MB per connection.\nNote: Increasing max_connections beyond 200 on a 64 GB system may cause memory pressure.",
+      "stage1_diagnostics": {
+        "structural_flags": [],
+        "reference_annotations": {
+          "evidence_sufficient": true,
+          "identifier_parity": true
+        }
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "### PostgreSQL 17 Configuration Guide: max_connections\nParameter: max_connections\nPurpose: Maximum number of concurrent client connections.\nRecommended value: 200 for a primary with 64 GB RAM.\nMemory overhead: approximately 10 MB per connection.\nNote: Increasing max_connections beyond 200 on a 64 GB system may cause memory pressure.",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": null,
+        "claim_grounding_status": null,
+        "grounding_assessment_status": "Pending agent response",
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Sufficient"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Accepts as grounded",
+        "sufficiency_detection": "Does not detect",
+        "reliability_outcome": null,
+        "rationale": "Evidence is intact, parameter name matches, and the recommended value is explicitly stated."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-RUNBOOK-05-A-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "What is the recommended setting for max_connections on a PostgreSQL 17 primary with 64 GB RAM?",
+            "retrieved_evidence": "### PostgreSQL 17 Configuration Guide: max_connections\nParameter: max_connections\nPurpose: Maximum number of concurrent client connections.\nRecommended value: 200 for a primary with 64 GB RAM.\nMemory overhead: approximately 10 MB per connection.\nNote: Increasing max_connections beyond 200 on a 64 GB system may cause memory pressure.",
+            "agent_response": null,
+            "stage1_diagnostic_block": null
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-RUNBOOK-05-A-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What is the recommended setting for max_connections on a PostgreSQL 17 primary with 64 GB RAM?",
+            "retrieved_evidence": "### PostgreSQL 17 Configuration Guide: max_connections\nParameter: max_connections\nPurpose: Maximum number of concurrent client connections.\nRecommended value: 200 for a primary with 64 GB RAM.\nMemory overhead: approximately 10 MB per connection.\nNote: Increasing max_connections beyond 200 on a 64 GB system may cause memory pressure.",
+            "agent_response": null,
+            "stage1_diagnostic_block": {
+              "structural_flags": []
+            }
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    },
+    "regime_b": {
+      "retrieved_evidence": "### PostgreSQL 17 Configuration Guide: max_connections\nParameter: max_connections\nPurpose: Maximum number of concurrent client connections.\nRecommended value:",
+      "stage1_diagnostics": {
+        "structural_flags": [
+          "MID_SENTENCE_CUTOFF"
+        ],
+        "reference_annotations": {
+          "evidence_sufficient": false,
+          "identifier_parity": null
+        }
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "### PostgreSQL 17 Configuration Guide: max_connections\nParameter: max_connections\nPurpose: Maximum number of concurrent client connections.\nRecommended value:",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": null,
+        "claim_grounding_status": null,
+        "grounding_assessment_status": "Pending agent response",
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Insufficient (structural)"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Rejects as ungrounded",
+        "sufficiency_detection": "Detects insufficiency",
+        "reliability_outcome": null,
+        "rationale": "The evidence is structurally truncated before the recommended value is provided. Since the requested configuration value is absent, the evidence is insufficient to answer the query."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-RUNBOOK-05-B-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "What is the recommended setting for max_connections on a PostgreSQL 17 primary with 64 GB RAM?",
+            "retrieved_evidence": "### PostgreSQL 17 Configuration Guide: max_connections\nParameter: max_connections\nPurpose: Maximum number of concurrent client connections.\nRecommended value:",
+            "agent_response": null,
+            "stage1_diagnostic_block": null
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-RUNBOOK-05-B-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What is the recommended setting for max_connections on a PostgreSQL 17 primary with 64 GB RAM?",
+            "retrieved_evidence": "### PostgreSQL 17 Configuration Guide: max_connections\nParameter: max_connections\nPurpose: Maximum number of concurrent client connections.\nRecommended value:",
+            "agent_response": null,
+            "stage1_diagnostic_block": {
+              "structural_flags": [
+                "MID_SENTENCE_CUTOFF"
+              ]
+            }
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    },
+    "regime_c": {
+      "retrieved_evidence": "### PostgreSQL 17 Configuration Guide: max_locks_per_transaction\nParameter: max_locks_per_transaction\nPurpose: Number of lock table entries allocated per transaction.\nRecommended value: 64 for a primary with 64 GB RAM.\nNote: This parameter controls lock table size, not connection count. It does not affect max_connections.",
+      "stage1_diagnostics": {
+        "structural_flags": [],
+        "reference_annotations": {
+          "evidence_sufficient": false,
+          "identifier_parity": false
+        },
+        "diagnostic_note": "identifier_parity is a reference annotation, not a native scanner output. It is not exposed to the judge. Condition 2B receives only structural_flags and must identify the semantic mismatch from the query and retrieved evidence."
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "### PostgreSQL 17 Configuration Guide: max_locks_per_transaction\nParameter: max_locks_per_transaction\nPurpose: Number of lock table entries allocated per transaction.\nRecommended value: 64 for a primary with 64 GB RAM.\nNote: This parameter controls lock table size, not connection count. It does not affect max_connections.",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": null,
+        "claim_grounding_status": null,
+        "grounding_assessment_status": "Pending agent response",
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Insufficient (semantic)"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Rejects as ungrounded",
+        "sufficiency_detection": "Detects insufficiency",
+        "reliability_outcome": null,
+        "rationale": "The retrieved document describes max_locks_per_transaction, not max_connections. The two parameters serve different purposes. In 2B, structural_flags is empty, so the judge receives no direct signal of the mismatch and must rely on the parameter name itself."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-RUNBOOK-05-C-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "What is the recommended setting for max_connections on a PostgreSQL 17 primary with 64 GB RAM?",
+            "retrieved_evidence": "### PostgreSQL 17 Configuration Guide: max_locks_per_transaction\nParameter: max_locks_per_transaction\nPurpose: Number of lock table entries allocated per transaction.\nRecommended value: 64 for a primary with 64 GB RAM.\nNote: This parameter controls lock table size, not connection count. It does not affect max_connections.",
+            "agent_response": null,
+            "stage1_diagnostic_block": null
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-RUNBOOK-05-C-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What is the recommended setting for max_connections on a PostgreSQL 17 primary with 64 GB RAM?",
+            "retrieved_evidence": "### PostgreSQL 17 Configuration Guide: max_locks_per_transaction\nParameter: max_locks_per_transaction\nPurpose: Number of lock table entries allocated per transaction.\nRecommended value: 64 for a primary with 64 GB RAM.\nNote: This parameter controls lock table size, not connection count. It does not affect max_connections.",
+            "agent_response": null,
+            "stage1_diagnostic_block": {
+              "structural_flags": []
+            }
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    }
+  }
+}
