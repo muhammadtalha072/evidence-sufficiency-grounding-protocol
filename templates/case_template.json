@@ -203,12 +203,16 @@
           ],
           "properties": {
             "answer_correctness": {
-              "type": "string",
+              "type": [
+                "string",
+                "null"
+              ],
               "enum": [
                 "Correct",
                 "Partially correct",
                 "Incorrect",
-                "Abstained"
+                "Abstained",
+                null
               ]
             },
             "claim_grounding_status": {
