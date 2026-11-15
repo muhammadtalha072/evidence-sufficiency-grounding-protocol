@@ -87,6 +87,15 @@ Stage 1 flags are therefore treated as one input to the sufficiency judgment, no
 - Sufficiency is evaluated against the independent reference, not against the agent response.
 - The distinction between structural and semantic insufficiency is proposed for clarity; whether it should be formalized as two separate categories is left open (see Section 6.2).
 
+
+### 3.4 Completeness Requirement for Procedural Evidence
+
+Evidence sufficiency for procedural queries requires the retrieved evidence to specify a complete remediation action. Partial procedures, even when they identify most required steps, are classified as **Insufficient (structural)** when a necessary final operational step is missing.
+
+A procedure is considered complete when the retrieved evidence provides all operational steps necessary to answer the query without requiring the agent to infer or supply a missing remediation step.
+
+This requirement distinguishes evidence insufficiency from agent knowledge. An agent may be able to complete a procedure from prior knowledge, but the retrieved evidence itself remains insufficient if the missing step is not present in it.
+
 ---
 
 ## 4. Judge Reliability Criteria
