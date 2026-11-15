@@ -305,7 +305,10 @@
                     "type": "string"
                   },
                   "agent_response": {
-                    "type": "string"
+                    "type": [
+                      "string",
+                      "null"
+                    ]
                   },
                   "stage1_diagnostic_block": {
                     "type": [
