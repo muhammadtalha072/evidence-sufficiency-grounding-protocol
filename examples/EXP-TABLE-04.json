@@ -29,14 +29,15 @@
       },
       "reference": {
         "answer_correctness": "Correct",
-        "claim_grounding_status": "Grounded",
+        "claim_grounding_status": null,
         "grounding_error_characterization": [],
-        "evidence_sufficiency": "Sufficient"
+        "evidence_sufficiency": "Sufficient",
+        "grounding_assessment_status": "Pending agent response"
       },
       "expected_judge_behavior": {
         "grounding_decision": "Accepts as grounded",
         "sufficiency_detection": "Does not detect",
-        "reliability_outcome": "True acceptance",
+        "reliability_outcome": null,
         "rationale": "Evidence is structurally intact, headers/units match the query, and the claim is fully supported."
       },
       "judge_evaluations": [
@@ -73,12 +74,7 @@
             "retrieved_evidence": "Section: Note 11 - Remaining Performance Obligations (ASC 606, FY2026, $ in Millions)\n| Product Line | Current RPO (<12M) | Non-Current RPO (>12M) | Total FY2026 RPO |\n| :--- | :---: | :---: | :---: |\n| Sovereign AI Cloud | $245.10M | $167.70M | $412.80M |",
             "agent_response": "TBD",
             "stage1_diagnostic_block": {
-              "structural_flags": [],
-              "reference_annotations": {
-                "evidence_sufficient": true,
-                "identifier_parity": true
-              },
-              "identifier_parity": true
+              "structural_flags": []
             }
           },
           "judge": {
@@ -123,9 +119,7 @@
       "reference": {
         "answer_correctness": "Partially correct",
         "claim_grounding_status": null,
-        "grounding_error_characterization": [
-          "Omitted"
-        ],
+        "grounding_error_characterization": [],
         "evidence_sufficiency": "Insufficient (structural)",
         "grounding_assessment_status": "Pending agent response",
         "grounding_assessment_note": "Claim grounding cannot be determined until the agent response is available. Detached table rows lack column headers and units."
@@ -133,7 +127,7 @@
       "expected_judge_behavior": {
         "grounding_decision": "Rejects as ungrounded",
         "sufficiency_detection": "Detects insufficiency",
-        "reliability_outcome": "True rejection",
+        "reliability_outcome": null,
         "rationale": "Orphaned Markdown table row is detached from column/period/unit headers and truncated mid-row."
       },
       "judge_evaluations": [
@@ -173,12 +167,7 @@
               "structural_flags": [
                 "BROKEN_MARKDOWN_TABLE",
                 "MID_SENTENCE_CUTOFF"
-              ],
-              "reference_annotations": {
-                "evidence_sufficient": false,
-                "identifier_parity": null
-              },
-              "identifier_parity": null
+              ]
             }
           },
           "judge": {
@@ -220,16 +209,15 @@
       },
       "reference": {
         "answer_correctness": "Incorrect",
-        "claim_grounding_status": "Ungrounded",
-        "grounding_error_characterization": [
-          "Misattributed"
-        ],
-        "evidence_sufficiency": "Insufficient (semantic)"
+        "claim_grounding_status": null,
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Insufficient (semantic)",
+        "grounding_assessment_status": "Pending agent response"
       },
       "expected_judge_behavior": {
         "grounding_decision": "Rejects as ungrounded",
         "sufficiency_detection": "Detects insufficiency",
-        "reliability_outcome": "True rejection",
+        "reliability_outcome": null,
         "rationale": "Evidence shows FY2025 recognized deferred revenue in thousands ($412,800K), not FY2026 unbilled/contracted RPO in millions ($412.80M)."
       },
       "judge_evaluations": [
@@ -266,12 +254,7 @@
             "retrieved_evidence": "Section: Note 11 - Recognized Deferred Revenue Amortization (FY2025, $ in Thousands)\n| Product Line | Q1-Q2 Recognized | Q3-Q4 Recognized | Total FY2025 Recognized |\n| :--- | :---: | :---: | :---: |\n| Sovereign AI Cloud | $245,100 | $167,700 | $412,800 |",
             "agent_response": "TBD",
             "stage1_diagnostic_block": {
-              "structural_flags": [],
-              "reference_annotations": {
-                "evidence_sufficient": false,
-                "identifier_parity": false
-              },
-              "identifier_parity": false
+              "structural_flags": []
             }
           },
           "judge": {

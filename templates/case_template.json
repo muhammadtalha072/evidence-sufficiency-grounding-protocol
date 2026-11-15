@@ -250,9 +250,10 @@
             "grounding_assessment_status": {
               "type": "string",
               "enum": [
-                "Pending agent response",
-                "Assessed"
-              ]
+                "Completed",
+                "Pending agent response"
+              ],
+              "description": "Completed when claim_grounding_status is filled. Pending agent response when the agent has not yet produced a response."
             },
             "grounding_assessment_note": {
               "type": "string"
@@ -315,25 +316,13 @@
                       "object",
                       "null"
                     ],
-                    "description": "Null when the judge received no diagnostic block (Condition 2A). Populated when the judge received Stage 1 diagnostics (Condition 2B).",
+                    "description": "Null in Condition 2A. In Condition 2B, contains only structural_flags from Stage 1. reference_annotations and identifier_parity are NOT passed to the judge.",
                     "properties": {
                       "structural_flags": {
                         "type": "array",
                         "items": {
                           "type": "string"
                         }
-                      },
-                      "reference_annotations": {
-                        "type": [
-                          "object",
-                          "null"
-                        ]
-                      },
-                      "identifier_parity": {
-                        "type": [
-                          "boolean",
-                          "null"
-                        ]
                       }
                     },
                     "additionalProperties": false
@@ -462,14 +451,18 @@
               ]
             },
             "reliability_outcome": {
-              "type": "string",
+              "type": [
+                "string",
+                "null"
+              ],
               "enum": [
                 "True acceptance",
                 "False acceptance",
                 "True rejection",
                 "False rejection",
                 "Judge abstained",
-                "Excluded"
+                "Excluded",
+                null
               ]
             },
             "rationale": {

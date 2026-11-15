@@ -29,14 +29,15 @@
       },
       "reference": {
         "answer_correctness": "Correct",
-        "claim_grounding_status": "Grounded",
+        "claim_grounding_status": null,
         "grounding_error_characterization": [],
-        "evidence_sufficiency": "Sufficient"
+        "evidence_sufficiency": "Sufficient",
+        "grounding_assessment_status": "Pending agent response"
       },
       "expected_judge_behavior": {
         "grounding_decision": "Accepts as grounded",
         "sufficiency_detection": "Does not detect",
-        "reliability_outcome": "True acceptance",
+        "reliability_outcome": null,
         "rationale": "Evidence is structurally intact, headers/units match the query, and the claim is fully supported."
       },
       "judge_evaluations": [
@@ -73,12 +74,7 @@
             "retrieved_evidence": "Section: HNSW Query Latency SLA Matrix (Production Multi-AZ, Milliseconds)\n| Tier | ef_search | p50 Latency (ms) | p95 Latency (ms) | p99 Latency (ms) |\n| :--- | :---: | :---: | :---: | :---: |\n| Production Multi-AZ | 128 | 3.2 ms | 8.9 ms | 14.8 ms |",
             "agent_response": "TBD",
             "stage1_diagnostic_block": {
-              "structural_flags": [],
-              "reference_annotations": {
-                "evidence_sufficient": true,
-                "identifier_parity": true
-              },
-              "identifier_parity": true
+              "structural_flags": []
             }
           },
           "judge": {
@@ -123,9 +119,7 @@
       "reference": {
         "answer_correctness": "Partially correct",
         "claim_grounding_status": null,
-        "grounding_error_characterization": [
-          "Omitted"
-        ],
+        "grounding_error_characterization": [],
         "evidence_sufficiency": "Insufficient (structural)",
         "grounding_assessment_status": "Pending agent response",
         "grounding_assessment_note": "Claim grounding cannot be determined until the agent response is available. Detached table rows lack column headers and units."
@@ -133,7 +127,7 @@
       "expected_judge_behavior": {
         "grounding_decision": "Rejects as ungrounded",
         "sufficiency_detection": "Detects insufficiency",
-        "reliability_outcome": "True rejection",
+        "reliability_outcome": null,
         "rationale": "Orphaned Markdown table row is detached from column/period/unit headers and truncated mid-row."
       },
       "judge_evaluations": [
@@ -173,12 +167,7 @@
               "structural_flags": [
                 "BROKEN_MARKDOWN_TABLE",
                 "MID_SENTENCE_CUTOFF"
-              ],
-              "reference_annotations": {
-                "evidence_sufficient": false,
-                "identifier_parity": null
-              },
-              "identifier_parity": null
+              ]
             }
           },
           "judge": {
@@ -220,16 +209,15 @@
       },
       "reference": {
         "answer_correctness": "Incorrect",
-        "claim_grounding_status": "Ungrounded",
-        "grounding_error_characterization": [
-          "Misattributed"
-        ],
-        "evidence_sufficiency": "Insufficient (semantic)"
+        "claim_grounding_status": null,
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Insufficient (semantic)",
+        "grounding_assessment_status": "Pending agent response"
       },
       "expected_judge_behavior": {
         "grounding_decision": "Rejects as ungrounded",
         "sufficiency_detection": "Detects insufficiency",
-        "reliability_outcome": "True rejection",
+        "reliability_outcome": null,
         "rationale": "Evidence measures Staging Single-AZ cache hit latency in microseconds (1,480 us), not Production Multi-AZ p99 latency in milliseconds."
       },
       "judge_evaluations": [
@@ -266,12 +254,7 @@
             "retrieved_evidence": "Section: HNSW Cache Hit Latency Matrix (Staging Single-AZ, Microseconds)\n| Tier | ef_search | p50 Latency (us) | p95 Latency (us) | p99 Latency (us) |\n| :--- | :---: | :---: | :---: | :---: |\n| Staging Single-AZ | 128 | 320 us | 890 us | 1,480 us |",
             "agent_response": "TBD",
             "stage1_diagnostic_block": {
-              "structural_flags": [],
-              "reference_annotations": {
-                "evidence_sufficient": false,
-                "identifier_parity": false
-              },
-              "identifier_parity": false
+              "structural_flags": []
             }
           },
           "judge": {

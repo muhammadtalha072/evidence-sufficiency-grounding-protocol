@@ -29,14 +29,15 @@
       },
       "reference": {
         "answer_correctness": "Correct",
-        "claim_grounding_status": "Grounded",
+        "claim_grounding_status": null,
         "grounding_error_characterization": [],
-        "evidence_sufficiency": "Sufficient"
+        "evidence_sufficiency": "Sufficient",
+        "grounding_assessment_status": "Pending agent response"
       },
       "expected_judge_behavior": {
         "grounding_decision": "Accepts as grounded",
         "sufficiency_detection": "Does not detect",
-        "reliability_outcome": "True acceptance",
+        "reliability_outcome": null,
         "rationale": "Evidence is structurally intact, identifier matches, and the agent response is fully supported."
       },
       "judge_evaluations": [
@@ -73,12 +74,7 @@
             "retrieved_evidence": "### Runbook: ERR-PG-9042-WAL (Standby WAL Segment Checksum Panic)\nRemediation: Pause standby recovery, verify segment integrity via pg_waldump, and restore the damaged WAL file from cold archive before resuming replication.",
             "agent_response": "TBD",
             "stage1_diagnostic_block": {
-              "structural_flags": [],
-              "reference_annotations": {
-                "evidence_sufficient": true,
-                "identifier_parity": true
-              },
-              "identifier_parity": true
+              "structural_flags": []
             }
           },
           "judge": {
@@ -122,9 +118,7 @@
       "reference": {
         "answer_correctness": "Partially correct",
         "claim_grounding_status": null,
-        "grounding_error_characterization": [
-          "Omitted"
-        ],
+        "grounding_error_characterization": [],
         "evidence_sufficiency": "Insufficient (structural)",
         "grounding_assessment_status": "Pending agent response",
         "grounding_assessment_note": "Claim grounding cannot be determined until the agent response is available. Supported claims may be grounded even when the overall procedural answer is incomplete."
@@ -132,7 +126,7 @@
       "expected_judge_behavior": {
         "grounding_decision": "Rejects as ungrounded",
         "sufficiency_detection": "Detects insufficiency",
-        "reliability_outcome": "True rejection",
+        "reliability_outcome": null,
         "rationale": "Evidence is truncated mid-sentence. The agent cannot confirm the final remediation step. A correct judge should reject the claim as not fully grounded."
       },
       "judge_evaluations": [
@@ -171,12 +165,7 @@
             "stage1_diagnostic_block": {
               "structural_flags": [
                 "MID_SENTENCE_CUTOFF"
-              ],
-              "reference_annotations": {
-                "evidence_sufficient": false,
-                "identifier_parity": null
-              },
-              "identifier_parity": null
+              ]
             }
           },
           "judge": {
@@ -218,16 +207,15 @@
       },
       "reference": {
         "answer_correctness": "Incorrect",
-        "claim_grounding_status": "Ungrounded",
-        "grounding_error_characterization": [
-          "Misattributed"
-        ],
-        "evidence_sufficiency": "Insufficient (semantic)"
+        "claim_grounding_status": null,
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Insufficient (semantic)",
+        "grounding_assessment_status": "Pending agent response"
       },
       "expected_judge_behavior": {
         "grounding_decision": "Rejects as ungrounded",
         "sufficiency_detection": "Detects insufficiency",
-        "reliability_outcome": "True rejection",
+        "reliability_outcome": null,
         "rationale": "The retrieved evidence refers to ERR-PG-7710-LOCK, not ERR-PG-9042-WAL. The agent response does not address the query. In 2B, identifier_parity: false is explicitly available, so a correct judge should detect the mismatch."
       },
       "judge_evaluations": [
@@ -264,12 +252,7 @@
             "retrieved_evidence": "### Runbook: ERR-PG-7710-LOCK (Standby Lightweight Lock Starvation on WAL Replay)\nRemediation: Fatal panic on standby nodes during high-concurrency WAL replay. Increase max_locks_per_transaction=256 and set max_standby_streaming_delay=30s.",
             "agent_response": "TBD",
             "stage1_diagnostic_block": {
-              "structural_flags": [],
-              "reference_annotations": {
-                "evidence_sufficient": false,
-                "identifier_parity": false
-              },
-              "identifier_parity": false
+              "structural_flags": []
             }
           },
           "judge": {

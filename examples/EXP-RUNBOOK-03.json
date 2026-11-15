@@ -1,0 +1,274 @@
+{
+  "case_id": "EXP-RUNBOOK-03",
+  "research_question": "Does sibling identifier confusion between API versions affect agent correctness and judge grounding decisions?",
+  "query": "What is the required migration path for clients using the deprecated Meridian API v2 endpoint?",
+  "gold_answer": "Clients using Meridian API v2 must migrate from /v2/deprecate to /v3/deprecate before the v2 sunset date. The v3 endpoint is the supported replacement for v2.",
+  "domain": "API documentation (version deprecation)",
+  "case_description": "API deprecation query where the correct migration path depends on the exact API version. A sibling document describes the v3-to-v4 migration, which is valid for v3 but does not answer a v2 question. Identifiers are illustrative, not real-world API documentation.",
+  "expected_judge_behavior_note": "Judge results recorded here are EXPECTED outcomes for design purposes. Actual evaluations will be recorded after the experiment is executed.",
+  "regimes": {
+    "regime_a": {
+      "retrieved_evidence": "### Meridian API v2 Deprecation Notice\nEndpoint: /v2/deprecate\nStatus: Deprecated\nSunset date: 2026-12-31\nMigration path: Clients must migrate from /v2/deprecate to /v3/deprecate before the sunset date.\nReplacement endpoint: /v3/deprecate",
+      "stage1_diagnostics": {
+        "structural_flags": [],
+        "reference_annotations": {
+          "evidence_sufficient": true,
+          "identifier_parity": true
+        }
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "### Meridian API v2 Deprecation Notice\nEndpoint: /v2/deprecate\nStatus: Deprecated\nSunset date: 2026-12-31\nMigration path: Clients must migrate from /v2/deprecate to /v3/deprecate before the sunset date.\nReplacement endpoint: /v3/deprecate",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": "Correct",
+        "claim_grounding_status": null,
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Sufficient",
+        "grounding_assessment_status": "Pending agent response"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Accepts as grounded",
+        "sufficiency_detection": "Does not detect",
+        "reliability_outcome": null,
+        "rationale": "Evidence is intact, endpoint version matches, and the migration path is explicitly stated."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-RUNBOOK-03-A-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "What is the required migration path for clients using the deprecated Meridian API v2 endpoint?",
+            "retrieved_evidence": "### Meridian API v2 Deprecation Notice\nEndpoint: /v2/deprecate\nStatus: Deprecated\nSunset date: 2026-12-31\nMigration path: Clients must migrate from /v2/deprecate to /v3/deprecate before the sunset date.\nReplacement endpoint: /v3/deprecate",
+            "agent_response": null,
+            "stage1_diagnostic_block": null
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-RUNBOOK-03-A-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What is the required migration path for clients using the deprecated Meridian API v2 endpoint?",
+            "retrieved_evidence": "### Meridian API v2 Deprecation Notice\nEndpoint: /v2/deprecate\nStatus: Deprecated\nSunset date: 2026-12-31\nMigration path: Clients must migrate from /v2/deprecate to /v3/deprecate before the sunset date.\nReplacement endpoint: /v3/deprecate",
+            "agent_response": null,
+            "stage1_diagnostic_block": {
+              "structural_flags": []
+            }
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    },
+    "regime_b": {
+      "retrieved_evidence": "### Meridian API v2 Deprecation Notice\nEndpoint: /v2/deprecate\nStatus: Deprecated\nSunset date: 2026-12-31\nMigration path: Clients must migrate from /v2/deprecate to",
+      "stage1_diagnostics": {
+        "structural_flags": [
+          "MID_SENTENCE_CUTOFF"
+        ],
+        "reference_annotations": {
+          "evidence_sufficient": false,
+          "identifier_parity": null
+        }
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "### Meridian API v2 Deprecation Notice\nEndpoint: /v2/deprecate\nStatus: Deprecated\nSunset date: 2026-12-31\nMigration path: Clients must migrate from /v2/deprecate to",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": "Partially correct",
+        "claim_grounding_status": null,
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Insufficient (structural)",
+        "grounding_assessment_status": "Pending agent response"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Rejects as ungrounded",
+        "sufficiency_detection": "Detects insufficiency",
+        "reliability_outcome": null,
+        "rationale": "Evidence is truncated before the migration target endpoint is named. A correct judge should detect that the replacement endpoint is missing."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-RUNBOOK-03-B-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "What is the required migration path for clients using the deprecated Meridian API v2 endpoint?",
+            "retrieved_evidence": "### Meridian API v2 Deprecation Notice\nEndpoint: /v2/deprecate\nStatus: Deprecated\nSunset date: 2026-12-31\nMigration path: Clients must migrate from /v2/deprecate to",
+            "agent_response": null,
+            "stage1_diagnostic_block": null
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-RUNBOOK-03-B-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What is the required migration path for clients using the deprecated Meridian API v2 endpoint?",
+            "retrieved_evidence": "### Meridian API v2 Deprecation Notice\nEndpoint: /v2/deprecate\nStatus: Deprecated\nSunset date: 2026-12-31\nMigration path: Clients must migrate from /v2/deprecate to",
+            "agent_response": null,
+            "stage1_diagnostic_block": {
+              "structural_flags": [
+                "MID_SENTENCE_CUTOFF"
+              ]
+            }
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    },
+    "regime_c": {
+      "retrieved_evidence": "### Meridian API v3 Deprecation Notice\nEndpoint: /v3/deprecate\nStatus: Deprecated\nSunset date: 2027-06-30\nMigration path: Clients must migrate from /v3/deprecate to /v4/deprecate before the sunset date.\nReplacement endpoint: /v4/deprecate",
+      "stage1_diagnostics": {
+        "structural_flags": [],
+        "reference_annotations": {
+          "evidence_sufficient": false,
+          "identifier_parity": false
+        },
+        "diagnostic_note": "identifier_parity: false is a reference annotation, not a native scanner output. Condition 2B tests the judge response to this pre-prepared annotation."
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "### Meridian API v3 Deprecation Notice\nEndpoint: /v3/deprecate\nStatus: Deprecated\nSunset date: 2027-06-30\nMigration path: Clients must migrate from /v3/deprecate to /v4/deprecate before the sunset date.\nReplacement endpoint: /v4/deprecate",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": "Incorrect",
+        "claim_grounding_status": null,
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Insufficient (semantic)",
+        "grounding_assessment_status": "Pending agent response"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Rejects as ungrounded",
+        "sufficiency_detection": "Detects insufficiency",
+        "reliability_outcome": null,
+        "rationale": "The retrieved document is about v3-to-v4 migration, not v2-to-v3. It is internally valid for v3 but does not answer a v2 question. In 2B, identifier_parity: false is explicitly available, so a correct judge should detect the version mismatch."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-RUNBOOK-03-C-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "What is the required migration path for clients using the deprecated Meridian API v2 endpoint?",
+            "retrieved_evidence": "### Meridian API v3 Deprecation Notice\nEndpoint: /v3/deprecate\nStatus: Deprecated\nSunset date: 2027-06-30\nMigration path: Clients must migrate from /v3/deprecate to /v4/deprecate before the sunset date.\nReplacement endpoint: /v4/deprecate",
+            "agent_response": null,
+            "stage1_diagnostic_block": null
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-RUNBOOK-03-C-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What is the required migration path for clients using the deprecated Meridian API v2 endpoint?",
+            "retrieved_evidence": "### Meridian API v3 Deprecation Notice\nEndpoint: /v3/deprecate\nStatus: Deprecated\nSunset date: 2027-06-30\nMigration path: Clients must migrate from /v3/deprecate to /v4/deprecate before the sunset date.\nReplacement endpoint: /v4/deprecate",
+            "agent_response": null,
+            "stage1_diagnostic_block": {
+              "structural_flags": []
+            }
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    }
+  }
+}
