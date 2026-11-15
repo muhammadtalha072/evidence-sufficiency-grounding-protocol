@@ -1,0 +1,177 @@
+{
+  "case_id": "EXP-RUNBOOK-06",
+  "research_question": "Does sibling confusion between pgvector iterative scan parameters affect agent correctness and judge grounding decisions?",
+  "query": "What does the hnsw.iterative_scan configuration parameter control in PostgreSQL with pgvector?",
+  "gold_answer": "The hnsw.iterative_scan parameter enables iterative index scans for HNSW indexes. It allows the query planner to continue traversing the HNSW graph when the initial candidate pool does not return enough matching tuples. Supported values are off, strict_order, and relaxed_order.",
+  "domain": "Database configuration (pgvector iterative scan parameters)",
+  "case_description": "Feature flag query where the correct answer depends on the exact parameter name. hnsw.iterative_scan controls iterative scans for HNSW indexes; ivfflat.iterative_scan controls iterative scans for IVFFlat indexes. The two parameters share terminology but apply to different index types with different supported values.",
+  "expected_judge_behavior_note": "Judge results recorded here are EXPECTED outcomes for design purposes. Actual evaluations will be recorded after the experiment is executed.",
+  "regimes": {
+    "regime_a": {
+      "retrieved_evidence": "### pgvector Configuration: hnsw.iterative_scan\nParameter: hnsw.iterative_scan\nPurpose: Enables iterative index scans for HNSW indexes. Supported values: off, strict_order, relaxed_order.\nWhen enabled: The query planner continues traversing the HNSW graph when the initial candidate pool does not return enough matching tuples.\nWhen disabled: Iterative scans are not performed for HNSW indexes.\nNote: This parameter controls HNSW iterative scans only. It does not affect IVFFlat indexes.",
+      "stage1_diagnostics": {
+        "structural_flags": [],
+        "reference_annotations": { "evidence_sufficient": true, "identifier_parity": true }
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "### pgvector Configuration: hnsw.iterative_scan\nParameter: hnsw.iterative_scan\nPurpose: Enables iterative index scans for HNSW indexes. Supported values: off, strict_order, relaxed_order.\nWhen enabled: The query planner continues traversing the HNSW graph when the initial candidate pool does not return enough matching tuples.\nWhen disabled: Iterative scans are not performed for HNSW indexes.\nNote: This parameter controls HNSW iterative scans only. It does not affect IVFFlat indexes.",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": null,
+        "claim_grounding_status": null,
+        "grounding_assessment_status": "Pending agent response",
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Sufficient"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Accepts as grounded",
+        "sufficiency_detection": "Does not detect",
+        "reliability_outcome": null,
+        "rationale": "Evidence is intact, parameter name matches, and the purpose is explicitly stated with supported values."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-RUNBOOK-06-A-2A",
+          "condition": "2A", "exposure": "unassisted",
+          "judge_input": {
+            "query": "What does the hnsw.iterative_scan configuration parameter control in PostgreSQL with pgvector?",
+            "retrieved_evidence": "### pgvector Configuration: hnsw.iterative_scan\nParameter: hnsw.iterative_scan\nPurpose: Enables iterative index scans for HNSW indexes. Supported values: off, strict_order, relaxed_order.\nWhen enabled: The query planner continues traversing the HNSW graph when the initial candidate pool does not return enough matching tuples.\nWhen disabled: Iterative scans are not performed for HNSW indexes.\nNote: This parameter controls HNSW iterative scans only. It does not affect IVFFlat indexes.",
+            "agent_response": null,
+            "stage1_diagnostic_block": null
+          },
+          "judge": { "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null },
+          "result": { "grounding_decision": null, "sufficiency_detection": null, "reliability_outcome": null, "confidence": null, "rationale": null }
+        },
+        {
+          "evaluation_id": "EXP-RUNBOOK-06-A-2B",
+          "condition": "2B", "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What does the hnsw.iterative_scan configuration parameter control in PostgreSQL with pgvector?",
+            "retrieved_evidence": "### pgvector Configuration: hnsw.iterative_scan\nParameter: hnsw.iterative_scan\nPurpose: Enables iterative index scans for HNSW indexes. Supported values: off, strict_order, relaxed_order.\nWhen enabled: The query planner continues traversing the HNSW graph when the initial candidate pool does not return enough matching tuples.\nWhen disabled: Iterative scans are not performed for HNSW indexes.\nNote: This parameter controls HNSW iterative scans only. It does not affect IVFFlat indexes.",
+            "agent_response": null,
+            "stage1_diagnostic_block": { "structural_flags": [] }
+          },
+          "judge": { "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null },
+          "result": { "grounding_decision": null, "sufficiency_detection": null, "reliability_outcome": null, "confidence": null, "rationale": null }
+        }
+      ]
+    },
+    "regime_b": {
+      "retrieved_evidence": "### pgvector Configuration: hnsw.iterative_scan\nParameter: hnsw.iterative_scan\nPurpose:",
+      "stage1_diagnostics": {
+        "structural_flags": ["MID_SENTENCE_CUTOFF"],
+        "reference_annotations": { "evidence_sufficient": false, "identifier_parity": null }
+      },
+      "agent": {
+        "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null,
+        "agent_input": "### pgvector Configuration: hnsw.iterative_scan\nParameter: hnsw.iterative_scan\nPurpose:",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": null,
+        "claim_grounding_status": null,
+        "grounding_assessment_status": "Pending agent response",
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Insufficient (structural)"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Rejects as ungrounded",
+        "sufficiency_detection": "Detects insufficiency",
+        "reliability_outcome": null,
+        "rationale": "The evidence is truncated after the parameter name but before its purpose is stated. The requested information is absent, so the evidence is insufficient."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-RUNBOOK-06-B-2A",
+          "condition": "2A", "exposure": "unassisted",
+          "judge_input": {
+            "query": "What does the hnsw.iterative_scan configuration parameter control in PostgreSQL with pgvector?",
+            "retrieved_evidence": "### pgvector Configuration: hnsw.iterative_scan\nParameter: hnsw.iterative_scan\nPurpose:",
+            "agent_response": null,
+            "stage1_diagnostic_block": null
+          },
+          "judge": { "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null },
+          "result": { "grounding_decision": null, "sufficiency_detection": null, "reliability_outcome": null, "confidence": null, "rationale": null }
+        },
+        {
+          "evaluation_id": "EXP-RUNBOOK-06-B-2B",
+          "condition": "2B", "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What does the hnsw.iterative_scan configuration parameter control in PostgreSQL with pgvector?",
+            "retrieved_evidence": "### pgvector Configuration: hnsw.iterative_scan\nParameter: hnsw.iterative_scan\nPurpose:",
+            "agent_response": null,
+            "stage1_diagnostic_block": { "structural_flags": ["MID_SENTENCE_CUTOFF"] }
+          },
+          "judge": { "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null },
+          "result": { "grounding_decision": null, "sufficiency_detection": null, "reliability_outcome": null, "confidence": null, "rationale": null }
+        }
+      ]
+    },
+    "regime_c": {
+      "retrieved_evidence": "### pgvector Configuration: ivfflat.iterative_scan\nParameter: ivfflat.iterative_scan\nPurpose: Enables iterative index scans for IVFFlat indexes. Supported values: off, relaxed_order.\nWhen enabled: The query planner continues traversing the IVFFlat index when the initial candidate pool does not return enough matching tuples.\nWhen disabled: Iterative scans are not performed for IVFFlat indexes.\nNote: This parameter controls IVFFlat iterative scans only. It does not affect HNSW indexes.",
+      "stage1_diagnostics": {
+        "structural_flags": [],
+        "reference_annotations": { "evidence_sufficient": false, "identifier_parity": false },
+        "diagnostic_note": "identifier_parity is a reference annotation, not a native scanner output. It is not exposed to the judge. Condition 2B receives only structural_flags and must identify the semantic mismatch from the query and retrieved evidence."
+      },
+      "agent": {
+        "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null,
+        "agent_input": "### pgvector Configuration: ivfflat.iterative_scan\nParameter: ivfflat.iterative_scan\nPurpose: Enables iterative index scans for IVFFlat indexes. Supported values: off, relaxed_order.\nWhen enabled: The query planner continues traversing the IVFFlat index when the initial candidate pool does not return enough matching tuples.\nWhen disabled: Iterative scans are not performed for IVFFlat indexes.\nNote: This parameter controls IVFFlat iterative scans only. It does not affect HNSW indexes.",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": null,
+        "claim_grounding_status": null,
+        "grounding_assessment_status": "Pending agent response",
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Insufficient (semantic)"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Rejects as ungrounded",
+        "sufficiency_detection": "Detects insufficiency",
+        "reliability_outcome": null,
+        "rationale": "The retrieved document describes ivfflat.iterative_scan rather than hnsw.iterative_scan. Although both parameters control iterative index scans, they apply to different index types and have different supported values. The judge must identify the semantic mismatch from the query and retrieved evidence. Condition 2B provides no direct mismatch signal because structural_flags is empty."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-RUNBOOK-06-C-2A",
+          "condition": "2A", "exposure": "unassisted",
+          "judge_input": {
+            "query": "What does the hnsw.iterative_scan configuration parameter control in PostgreSQL with pgvector?",
+            "retrieved_evidence": "### pgvector Configuration: ivfflat.iterative_scan\nParameter: ivfflat.iterative_scan\nPurpose: Enables iterative index scans for IVFFlat indexes. Supported values: off, relaxed_order.\nWhen enabled: The query planner continues traversing the IVFFlat index when the initial candidate pool does not return enough matching tuples.\nWhen disabled: Iterative scans are not performed for IVFFlat indexes.\nNote: This parameter controls IVFFlat iterative scans only. It does not affect HNSW indexes.",
+            "agent_response": null,
+            "stage1_diagnostic_block": null
+          },
+          "judge": { "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null },
+          "result": { "grounding_decision": null, "sufficiency_detection": null, "reliability_outcome": null, "confidence": null, "rationale": null }
+        },
+        {
+          "evaluation_id": "EXP-RUNBOOK-06-C-2B",
+          "condition": "2B", "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What does the hnsw.iterative_scan configuration parameter control in PostgreSQL with pgvector?",
+            "retrieved_evidence": "### pgvector Configuration: ivfflat.iterative_scan\nParameter: ivfflat.iterative_scan\nPurpose: Enables iterative index scans for IVFFlat indexes. Supported values: off, relaxed_order.\nWhen enabled: The query planner continues traversing the IVFFlat index when the initial candidate pool does not return enough matching tuples.\nWhen disabled: Iterative scans are not performed for IVFFlat indexes.\nNote: This parameter controls IVFFlat iterative scans only. It does not affect HNSW indexes.",
+            "agent_response": null,
+            "stage1_diagnostic_block": { "structural_flags": [] }
+          },
+          "judge": { "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null },
+          "result": { "grounding_decision": null, "sufficiency_detection": null, "reliability_outcome": null, "confidence": null, "rationale": null }
+        }
+      ]
+    }
+  }
+}
