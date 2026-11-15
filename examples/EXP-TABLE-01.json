@@ -1,0 +1,180 @@
+{
+  "case_id": "EXP-TABLE-01",
+  "research_question": "Does structural or semantic evidence degradation affect agent correctness and judge grounding decisions?",
+  "query": "What was the Q3 2026 GAAP Cloud Database segment revenue in millions?",
+  "gold_answer": "$189.45M GAAP in Q3 2026 (up from $142.10M in Q2 2026).",
+  "domain": "Financial reporting (SEC 10-K)",
+  "case_description": "Table-based query where the correct answer depends on distinguishing GAAP vs Non-GAAP, year (2026 vs 2025), and unit (millions vs thousands).",
+  "regimes": {
+    "regime_a": {
+      "retrieved_evidence": "Section: Item 7 - Segment Revenue (GAAP, $ in Millions)\n| Segment | Q3 2026 (GAAP) | Q2 2026 (GAAP) | YoY Change |\n| :--- | :---: | :---: | :---: |\n| Cloud Database | $189.45M | $142.10M | +33.3% |",
+      "stage1_diagnostics": {
+        "structural_flags": [],
+        "reference_annotations": { "evidence_sufficient": true, "identifier_parity": true }
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "Section: Item 7 - Segment Revenue (GAAP, $ in Millions)\n| Segment | Q3 2026 (GAAP) | Q2 2026 (GAAP) | YoY Change |\n| :--- | :---: | :---: | :---: |\n| Cloud Database | $189.45M | $142.10M | +33.3% |",
+        "response": "TBD",
+        "correctness_outcome": "Correct",
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": "Correct",
+        "claim_grounding_status": "Grounded",
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Sufficient"
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-TABLE-01-A-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "What was the Q3 2026 GAAP Cloud Database segment revenue in millions?",
+            "retrieved_evidence": "Section: Item 7 - Segment Revenue (GAAP, $ in Millions)\n| Segment | Q3 2026 (GAAP) | Q2 2026 (GAAP) | YoY Change |\n| :--- | :---: | :---: | :---: |\n| Cloud Database | $189.45M | $142.10M | +33.3% |",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": null
+          },
+          "judge": { "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null },
+          "result": {
+            "grounding_decision": "Accepts as grounded",
+            "sufficiency_detection": "Does not detect",
+            "reliability_outcome": "True acceptance",
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-TABLE-01-A-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What was the Q3 2026 GAAP Cloud Database segment revenue in millions?",
+            "retrieved_evidence": "Section: Item 7 - Segment Revenue (GAAP, $ in Millions)\n| Segment | Q3 2026 (GAAP) | Q2 2026 (GAAP) | YoY Change |\n| :--- | :---: | :---: | :---: |\n| Cloud Database | $189.45M | $142.10M | +33.3% |",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": {
+              "structural_flags": [],
+              "reference_annotations": { "evidence_sufficient": true, "identifier_parity": true },
+              "identifier_parity": true
+            }
+          },
+          "judge": { "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null },
+          "result": {
+            "grounding_decision": "Accepts as grounded",
+            "sufficiency_detection": "Does not detect",
+            "reliability_outcome": "True acceptance",
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    },
+    "regime_b": {
+      "retrieved_evidence": "| Cloud Database | $189.45M | $142.10M | +33.3%",
+      "stage1_diagnostics": {
+        "structural_flags": ["BROKEN_MARKDOWN_TABLE", "MID_SENTENCE_CUTOFF"],
+        "reference_annotations": { "evidence_sufficient": false, "identifier_parity": null }
+      },
+      "agent": {
+        "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null,
+        "agent_input": "| Cloud Database | $189.45M | $142.10M | +33.3%",
+        "response": "TBD",
+        "correctness_outcome": "Partially correct",
+        "error_characterization": ["Omitted"],
+        "primary_error_characterization": "Omitted"
+      },
+      "reference": {
+        "answer_correctness": "Partially correct",
+        "claim_grounding_status": "Ungrounded",
+        "grounding_error_characterization": ["Omitted"],
+        "evidence_sufficiency": "Insufficient (structural)"
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-TABLE-01-B-2A",
+          "condition": "2A", "exposure": "unassisted",
+          "judge_input": {
+            "query": "What was the Q3 2026 GAAP Cloud Database segment revenue in millions?",
+            "retrieved_evidence": "| Cloud Database | $189.45M | $142.10M | +33.3%",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": null
+          },
+          "judge": { "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null },
+          "result": { "grounding_decision": "Accepts as grounded", "sufficiency_detection": "Does not detect", "reliability_outcome": "False acceptance", "confidence": null, "rationale": null }
+        },
+        {
+          "evaluation_id": "EXP-TABLE-01-B-2B",
+          "condition": "2B", "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What was the Q3 2026 GAAP Cloud Database segment revenue in millions?",
+            "retrieved_evidence": "| Cloud Database | $189.45M | $142.10M | +33.3%",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": {
+              "structural_flags": ["BROKEN_MARKDOWN_TABLE", "MID_SENTENCE_CUTOFF"],
+              "reference_annotations": { "evidence_sufficient": false, "identifier_parity": null },
+              "identifier_parity": null
+            }
+          },
+          "judge": { "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null },
+          "result": { "grounding_decision": "Rejects as ungrounded", "sufficiency_detection": "Detects insufficiency", "reliability_outcome": "True rejection", "confidence": null, "rationale": null }
+        }
+      ]
+    },
+    "regime_c": {
+      "retrieved_evidence": "Section: Item 7 - Non-GAAP Adjusted Billings ($ in Thousands)\n| Segment | Q3 2025 (Non-GAAP) | Q2 2025 (Non-GAAP) | YoY Change |\n| :--- | :---: | :---: | :---: |\n| Cloud Database | $189,450 | $142,100 | +33.3% |",
+      "stage1_diagnostics": {
+        "structural_flags": [],
+        "reference_annotations": { "evidence_sufficient": false, "identifier_parity": false }
+      },
+      "agent": {
+        "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null,
+        "agent_input": "Section: Item 7 - Non-GAAP Adjusted Billings ($ in Thousands)\n| Segment | Q3 2025 (Non-GAAP) | Q2 2025 (Non-GAAP) | YoY Change |\n| :--- | :---: | :---: | :---: |\n| Cloud Database | $189,450 | $142,100 | +33.3% |",
+        "response": "TBD",
+        "correctness_outcome": "Incorrect",
+        "error_characterization": ["Misattributed"],
+        "primary_error_characterization": "Misattributed"
+      },
+      "reference": {
+        "answer_correctness": "Incorrect",
+        "claim_grounding_status": "Ungrounded",
+        "grounding_error_characterization": ["Misattributed"],
+        "evidence_sufficiency": "Insufficient (semantic)"
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-TABLE-01-C-2A",
+          "condition": "2A", "exposure": "unassisted",
+          "judge_input": {
+            "query": "What was the Q3 2026 GAAP Cloud Database segment revenue in millions?",
+            "retrieved_evidence": "Section: Item 7 - Non-GAAP Adjusted Billings ($ in Thousands)\n| Segment | Q3 2025 (Non-GAAP) | Q2 2025 (Non-GAAP) | YoY Change |\n| :--- | :---: | :---: | :---: |\n| Cloud Database | $189,450 | $142,100 | +33.3% |",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": null
+          },
+          "judge": { "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null },
+          "result": { "grounding_decision": "Accepts as grounded", "sufficiency_detection": "Does not detect", "reliability_outcome": "False acceptance", "confidence": null, "rationale": null }
+        },
+        {
+          "evaluation_id": "EXP-TABLE-01-C-2B",
+          "condition": "2B", "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What was the Q3 2026 GAAP Cloud Database segment revenue in millions?",
+            "retrieved_evidence": "Section: Item 7 - Non-GAAP Adjusted Billings ($ in Thousands)\n| Segment | Q3 2025 (Non-GAAP) | Q2 2025 (Non-GAAP) | YoY Change |\n| :--- | :---: | :---: | :---: |\n| Cloud Database | $189,450 | $142,100 | +33.3% |",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": {
+              "structural_flags": [],
+              "reference_annotations": { "evidence_sufficient": false, "identifier_parity": false },
+              "identifier_parity": false
+            }
+          },
+          "judge": { "model": "TBD", "version": "TBD", "provider": "TBD", "prompt_version": null },
+          "result": { "grounding_decision": "Accepts as grounded", "sufficiency_detection": "Does not detect", "reliability_outcome": "False acceptance", "confidence": null, "rationale": null }
+        }
+      ]
+    }
+  }
+}
