@@ -1,0 +1,294 @@
+{
+  "case_id": "EXP-TABLE-02",
+  "research_question": "Does structural or semantic evidence degradation affect agent correctness and judge grounding decisions?",
+  "query": "What is the on-demand hourly USD rate and provisioned IOPS for the db.pg17.vec.8xlarge instance in us-east-1?",
+  "gold_answer": "$5.920/hr on-demand in us-east-1 with 120,000 provisioned IOPS.",
+  "domain": "Cloud infrastructure pricing matrix",
+  "case_description": "Table query where correctness depends on distinguishing On-Demand USD/hr in us-east-1 from 3-Year Reserved EUR/hr in eu-central-1.",
+  "expected_judge_behavior_note": "The judge results recorded in expected_judge_behavior are EXPECTED outcomes for design purposes. Actual evaluations in judge_evaluations[*].result remain null until execution.",
+  "regimes": {
+    "regime_a": {
+      "retrieved_evidence": "Section: Managed pgvector Instance Pricing (us-east-1, On-Demand USD/hr)\n| SKU | vCPU | RAM | Provisioned IOPS | On-Demand Rate |\n| :--- | :---: | :---: | :---: | :---: |\n| db.pg17.vec.8xlarge | 32 | 256 GB | 120,000 IOPS | $5.920/hr |",
+      "stage1_diagnostics": {
+        "structural_flags": [],
+        "reference_annotations": {
+          "evidence_sufficient": true,
+          "identifier_parity": true
+        }
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "Section: Managed pgvector Instance Pricing (us-east-1, On-Demand USD/hr)\n| SKU | vCPU | RAM | Provisioned IOPS | On-Demand Rate |\n| :--- | :---: | :---: | :---: | :---: |\n| db.pg17.vec.8xlarge | 32 | 256 GB | 120,000 IOPS | $5.920/hr |",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": "Correct",
+        "claim_grounding_status": "Grounded",
+        "grounding_error_characterization": [],
+        "evidence_sufficiency": "Sufficient"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Accepts as grounded",
+        "sufficiency_detection": "Does not detect",
+        "reliability_outcome": "True acceptance",
+        "rationale": "Evidence is structurally intact, headers/units match the query, and the claim is fully supported."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-TABLE-02-A-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "What is the on-demand hourly USD rate and provisioned IOPS for the db.pg17.vec.8xlarge instance in us-east-1?",
+            "retrieved_evidence": "Section: Managed pgvector Instance Pricing (us-east-1, On-Demand USD/hr)\n| SKU | vCPU | RAM | Provisioned IOPS | On-Demand Rate |\n| :--- | :---: | :---: | :---: | :---: |\n| db.pg17.vec.8xlarge | 32 | 256 GB | 120,000 IOPS | $5.920/hr |",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": null
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-TABLE-02-A-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What is the on-demand hourly USD rate and provisioned IOPS for the db.pg17.vec.8xlarge instance in us-east-1?",
+            "retrieved_evidence": "Section: Managed pgvector Instance Pricing (us-east-1, On-Demand USD/hr)\n| SKU | vCPU | RAM | Provisioned IOPS | On-Demand Rate |\n| :--- | :---: | :---: | :---: | :---: |\n| db.pg17.vec.8xlarge | 32 | 256 GB | 120,000 IOPS | $5.920/hr |",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": {
+              "structural_flags": [],
+              "reference_annotations": {
+                "evidence_sufficient": true,
+                "identifier_parity": true
+              },
+              "identifier_parity": true
+            }
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    },
+    "regime_b": {
+      "retrieved_evidence": "| db.pg17.vec.8xlarge | 32 | 256 GB | 120,000 IOPS | $5.920",
+      "stage1_diagnostics": {
+        "structural_flags": [
+          "BROKEN_MARKDOWN_TABLE",
+          "MID_SENTENCE_CUTOFF"
+        ],
+        "reference_annotations": {
+          "evidence_sufficient": false,
+          "identifier_parity": null
+        }
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "| db.pg17.vec.8xlarge | 32 | 256 GB | 120,000 IOPS | $5.920",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": "Partially correct",
+        "claim_grounding_status": null,
+        "grounding_error_characterization": [
+          "Omitted"
+        ],
+        "evidence_sufficiency": "Insufficient (structural)",
+        "grounding_assessment_status": "Pending agent response",
+        "grounding_assessment_note": "Claim grounding cannot be determined until the agent response is available. Detached table rows lack column headers and units."
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Rejects as ungrounded",
+        "sufficiency_detection": "Detects insufficiency",
+        "reliability_outcome": "True rejection",
+        "rationale": "Orphaned Markdown table row is detached from column/period/unit headers and truncated mid-row."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-TABLE-02-B-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "What is the on-demand hourly USD rate and provisioned IOPS for the db.pg17.vec.8xlarge instance in us-east-1?",
+            "retrieved_evidence": "| db.pg17.vec.8xlarge | 32 | 256 GB | 120,000 IOPS | $5.920",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": null
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-TABLE-02-B-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What is the on-demand hourly USD rate and provisioned IOPS for the db.pg17.vec.8xlarge instance in us-east-1?",
+            "retrieved_evidence": "| db.pg17.vec.8xlarge | 32 | 256 GB | 120,000 IOPS | $5.920",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": {
+              "structural_flags": [
+                "BROKEN_MARKDOWN_TABLE",
+                "MID_SENTENCE_CUTOFF"
+              ],
+              "reference_annotations": {
+                "evidence_sufficient": false,
+                "identifier_parity": null
+              },
+              "identifier_parity": null
+            }
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    },
+    "regime_c": {
+      "retrieved_evidence": "Section: Managed pgvector Instance Pricing (eu-central-1, 3-Yr Reserved EUR/hr)\n| SKU | vCPU | RAM | Burst IOPS | 3-Yr Reserved Rate |\n| :--- | :---: | :---: | :---: | :---: |\n| db.pg17.vec.8xlarge | 32 | 256 GB | 120,000 IOPS | €3.140/hr |",
+      "stage1_diagnostics": {
+        "structural_flags": [],
+        "reference_annotations": {
+          "evidence_sufficient": false,
+          "identifier_parity": false
+        },
+        "diagnostic_note": "identifier_parity: false is a reference annotation indicating contextual/metadata divergence (C1), not a native output of scan_chunks_health()."
+      },
+      "agent": {
+        "model": "TBD",
+        "version": "TBD",
+        "provider": "TBD",
+        "prompt_version": null,
+        "agent_input": "Section: Managed pgvector Instance Pricing (eu-central-1, 3-Yr Reserved EUR/hr)\n| SKU | vCPU | RAM | Burst IOPS | 3-Yr Reserved Rate |\n| :--- | :---: | :---: | :---: | :---: |\n| db.pg17.vec.8xlarge | 32 | 256 GB | 120,000 IOPS | €3.140/hr |",
+        "response": null,
+        "correctness_outcome": null,
+        "error_characterization": [],
+        "primary_error_characterization": null
+      },
+      "reference": {
+        "answer_correctness": "Incorrect",
+        "claim_grounding_status": "Ungrounded",
+        "grounding_error_characterization": [
+          "Misattributed"
+        ],
+        "evidence_sufficiency": "Insufficient (semantic)"
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Rejects as ungrounded",
+        "sufficiency_detection": "Detects insufficiency",
+        "reliability_outcome": "True rejection",
+        "rationale": "Evidence is for eu-central-1 3-Year Reserved pricing in EUR (€3.140/hr) and Burst IOPS, not us-east-1 On-Demand USD/hr."
+      },
+      "judge_evaluations": [
+        {
+          "evaluation_id": "EXP-TABLE-02-C-2A",
+          "condition": "2A",
+          "exposure": "unassisted",
+          "judge_input": {
+            "query": "What is the on-demand hourly USD rate and provisioned IOPS for the db.pg17.vec.8xlarge instance in us-east-1?",
+            "retrieved_evidence": "Section: Managed pgvector Instance Pricing (eu-central-1, 3-Yr Reserved EUR/hr)\n| SKU | vCPU | RAM | Burst IOPS | 3-Yr Reserved Rate |\n| :--- | :---: | :---: | :---: | :---: |\n| db.pg17.vec.8xlarge | 32 | 256 GB | 120,000 IOPS | €3.140/hr |",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": null
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        },
+        {
+          "evaluation_id": "EXP-TABLE-02-C-2B",
+          "condition": "2B",
+          "exposure": "stage1_informed",
+          "judge_input": {
+            "query": "What is the on-demand hourly USD rate and provisioned IOPS for the db.pg17.vec.8xlarge instance in us-east-1?",
+            "retrieved_evidence": "Section: Managed pgvector Instance Pricing (eu-central-1, 3-Yr Reserved EUR/hr)\n| SKU | vCPU | RAM | Burst IOPS | 3-Yr Reserved Rate |\n| :--- | :---: | :---: | :---: | :---: |\n| db.pg17.vec.8xlarge | 32 | 256 GB | 120,000 IOPS | €3.140/hr |",
+            "agent_response": "TBD",
+            "stage1_diagnostic_block": {
+              "structural_flags": [],
+              "reference_annotations": {
+                "evidence_sufficient": false,
+                "identifier_parity": false
+              },
+              "identifier_parity": false
+            }
+          },
+          "judge": {
+            "model": "TBD",
+            "version": "TBD",
+            "provider": "TBD",
+            "prompt_version": null
+          },
+          "result": {
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
+            "confidence": null,
+            "rationale": null
+          }
+        }
+      ]
+    }
+  }
+}

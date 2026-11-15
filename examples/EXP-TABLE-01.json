@@ -5,6 +5,7 @@
   "gold_answer": "$189.45M GAAP in Q3 2026 (up from $142.10M in Q2 2026).",
   "domain": "Financial reporting (SEC 10-K)",
   "case_description": "Table-based query where the correct answer depends on distinguishing GAAP vs Non-GAAP, year (2026 vs 2025), and unit (millions vs thousands).",
+  "expected_judge_behavior_note": "The judge results recorded in expected_judge_behavior are EXPECTED outcomes for design purposes. Actual evaluations in judge_evaluations[*].result remain null until execution.",
   "regimes": {
     "regime_a": {
       "retrieved_evidence": "Section: Item 7 - Segment Revenue (GAAP, $ in Millions)\n| Segment | Q3 2026 (GAAP) | Q2 2026 (GAAP) | YoY Change |\n| :--- | :---: | :---: | :---: |\n| Cloud Database | $189.45M | $142.10M | +33.3% |",
@@ -32,6 +33,12 @@
         "grounding_error_characterization": [],
         "evidence_sufficiency": "Sufficient"
       },
+      "expected_judge_behavior": {
+        "grounding_decision": "Accepts as grounded",
+        "sufficiency_detection": "Does not detect",
+        "reliability_outcome": "True acceptance",
+        "rationale": "Evidence is structurally intact, headers/units match the query, and the claim is fully supported."
+      },
       "judge_evaluations": [
         {
           "evaluation_id": "EXP-TABLE-01-A-2A",
@@ -50,9 +57,9 @@
             "prompt_version": null
           },
           "result": {
-            "grounding_decision": "Accepts as grounded",
-            "sufficiency_detection": "Does not detect",
-            "reliability_outcome": "True acceptance",
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
             "confidence": null,
             "rationale": null
           }
@@ -81,9 +88,9 @@
             "prompt_version": null
           },
           "result": {
-            "grounding_decision": "Accepts as grounded",
-            "sufficiency_detection": "Does not detect",
-            "reliability_outcome": "True acceptance",
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
             "confidence": null,
             "rationale": null
           }
@@ -115,11 +122,19 @@
       },
       "reference": {
         "answer_correctness": "Partially correct",
-        "claim_grounding_status": "Ungrounded",
+        "claim_grounding_status": null,
         "grounding_error_characterization": [
           "Omitted"
         ],
-        "evidence_sufficiency": "Insufficient (structural)"
+        "evidence_sufficiency": "Insufficient (structural)",
+        "grounding_assessment_status": "Pending agent response",
+        "grounding_assessment_note": "Claim grounding cannot be determined until the agent response is available. Detached table rows lack column headers and units."
+      },
+      "expected_judge_behavior": {
+        "grounding_decision": "Rejects as ungrounded",
+        "sufficiency_detection": "Detects insufficiency",
+        "reliability_outcome": "True rejection",
+        "rationale": "Orphaned Markdown table row is detached from column/period/unit headers and truncated mid-row."
       },
       "judge_evaluations": [
         {
@@ -139,9 +154,9 @@
             "prompt_version": null
           },
           "result": {
-            "grounding_decision": "Accepts as grounded",
-            "sufficiency_detection": "Does not detect",
-            "reliability_outcome": "False acceptance",
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
             "confidence": null,
             "rationale": null
           }
@@ -173,9 +188,9 @@
             "prompt_version": null
           },
           "result": {
-            "grounding_decision": "Rejects as ungrounded",
-            "sufficiency_detection": "Detects insufficiency",
-            "reliability_outcome": "True rejection",
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
             "confidence": null,
             "rationale": null
           }
@@ -189,7 +204,8 @@
         "reference_annotations": {
           "evidence_sufficient": false,
           "identifier_parity": false
-        }
+        },
+        "diagnostic_note": "identifier_parity: false is a reference annotation indicating contextual/metadata divergence (C1), not a native output of scan_chunks_health()."
       },
       "agent": {
         "model": "TBD",
@@ -210,6 +226,12 @@
         ],
         "evidence_sufficiency": "Insufficient (semantic)"
       },
+      "expected_judge_behavior": {
+        "grounding_decision": "Rejects as ungrounded",
+        "sufficiency_detection": "Detects insufficiency",
+        "reliability_outcome": "True rejection",
+        "rationale": "Evidence reports Q3 2025 Non-GAAP Adjusted Billings in thousands ($189,450K), not Q3 2026 GAAP revenue in millions ($189.45M)."
+      },
       "judge_evaluations": [
         {
           "evaluation_id": "EXP-TABLE-01-C-2A",
@@ -228,9 +250,9 @@
             "prompt_version": null
           },
           "result": {
-            "grounding_decision": "Accepts as grounded",
-            "sufficiency_detection": "Does not detect",
-            "reliability_outcome": "False acceptance",
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
             "confidence": null,
             "rationale": null
           }
@@ -259,9 +281,9 @@
             "prompt_version": null
           },
           "result": {
-            "grounding_decision": "Accepts as grounded",
-            "sufficiency_detection": "Does not detect",
-            "reliability_outcome": "False acceptance",
+            "grounding_decision": null,
+            "sufficiency_detection": null,
+            "reliability_outcome": null,
             "confidence": null,
             "rationale": null
           }
